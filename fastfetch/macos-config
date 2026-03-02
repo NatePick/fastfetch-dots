@@ -1,0 +1,61 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
+  "display": {
+    "separator": " ",
+    "key": {
+      "width": 4
+    }
+  },
+
+  "logo": {
+    "type": "kitty-direct",
+    "source": "~/Pictures/Apple-Logo-1977.png",
+    "height": 16,
+    "width": 60
+  },
+
+  "modules": [
+    { "type": "os",       "key": "󰣭 OS",        "keyColor": "yellow" },
+    { "type": "kernel",   "key": "├ Kernel",   "keyColor": "yellow" },
+    { "type": "packages", "key": "├󰏖 Packages", "keyColor": "yellow" },
+    { "type": "uptime",   "key": "├󰅐 Uptime",   "keyColor": "yellow" },
+
+    {
+      "type": "command",
+      "key": "├ Installed",
+      "keyColor": "yellow",
+      "shell": "/bin/zsh",
+      "text": "system_profiler SPSoftwareDataType | awk -F': ' '/Install Date/{print $2; exit}'"
+    },
+    {
+      "type": "command",
+      "key": "├󰃶 Today",
+      "keyColor": "yellow",
+      "shell": "/bin/zsh",
+      "text": "date +%Y-%m-%d"
+    },
+    {
+      "type": "command",
+      "key": "└󰥕 Age",
+      "keyColor": "yellow",
+      "shell": "/bin/zsh",
+      "text": "python3 - <<'PY'\nimport datetime, subprocess, re\ns=subprocess.check_output(['system_profiler','SPSoftwareDataType']).decode('utf-8','ignore')\nm=re.search(r'Install Date:\\s*(.*)', s)\nif not m:\n  print('unknown'); raise SystemExit\ninst=m.group(1).strip()\nfor fmt in ('%Y-%m-%d','%b %d, %Y'):\n  try:\n    d=datetime.datetime.strptime(inst, fmt).date(); break\n  except ValueError:\n    d=None\nif d is None:\n  print(inst); raise SystemExit\nprint(f\"{(datetime.date.today()-d).days} days ago\")\nPY"
+    },
+
+    { "type": "break" },
+
+    { "type": "terminal", "key": " Terminal", "keyColor": "blue" },
+    { "type": "shell",    "key": "├ Shell",   "keyColor": "blue" },
+    { "type": "wm",       "key": "└󰧨 WM",      "keyColor": "blue" },
+
+    { "type": "break" },
+
+    { "type": "host",   "key": "󰇅 Mac",    "keyColor": "green" },
+    { "type": "cpu",    "key": "├󰻠 CPU",   "keyColor": "green", "temp": false, "freqNdigits": 1 },
+    { "type": "memory", "key": "├󰑭 RAM",   "keyColor": "green" },
+    { "type": "disk",   "key": "├󰉉 Disk",  "keyColor": "green" },
+    { "type": "gpu",    "key": "├󰍛 GPU",   "keyColor": "green" },
+    { "type": "display","key": "└󰍹 Display","keyColor": "green" }
+  ]
+}
