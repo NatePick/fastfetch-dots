@@ -5,9 +5,9 @@
     },
     "logo": {
                     "type": "kitty-direct",
-                    "source": "~/Pictures/cachyos-linux.png",
+                    "source": "~/Pictures/Logo-Tech-No-Background_-_Large.png",
                     "height": 22,
-                    "width": 62
+                    "width": 44
             },   
     "modules": [
         {
@@ -43,12 +43,6 @@
             "shell": "/bin/bash",
             "text": "date +%s | awk '{print strftime(\"%Y-%m-%d\", $1)}'",
         "keyColor": "yellow"
-    },
-    {
-            "type": "command",
-            "key": "└󰥕 Age",
-            "keyColor": "yellow",
-            "text": "echo $(( ($(date +%s) - $(stat -c %W /)) / 86400 )) days ago",
     },
             "break",
         {
@@ -107,7 +101,14 @@
         {
             "type": "gpu",
             "key": "├󰍛 GPU",
-            "keyColor": "green"
+            "keyColor": "green",
+            "format": "{name}"
+        },
+        {
+            "type": "gpu",
+            "key": "│  Driver",
+            "keyColor": "green",
+            "format": "{driver}"
         },
         {
             "type": "display",
@@ -117,4 +118,3 @@
     "break",
   ]
 }
-
